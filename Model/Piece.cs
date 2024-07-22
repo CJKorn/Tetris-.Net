@@ -47,13 +47,14 @@
             PieceY--;
         }
 
-        public int[,] GetPieceOnBoard() {
+        public int[,] GetPieceOnBoard(bool GhostPieces) {
             int[,] pieceOnBoard = new int[10, 24];
             for (int i = 0; i < 4; i++) {
                 int x = PieceX + PieceShape[i, 0];
                 int y = PieceY + PieceShape[i, 1];
-                if ((GetDropDist() > 0) && (y - GetDropDist() >= 0) && (pieceOnBoard[x, y - GetDropDist()] == 0)) {
-                    pieceOnBoard[x, y - GetDropDist()] = (8);
+                int DropDist = GetDropDist();
+                if ((DropDist > 0) && (y - DropDist >= 0) && (GhostPieces) && (x >= 0) && (x < 10)) {
+                    pieceOnBoard[x, y - DropDist] = (8);
                 }
                 if (x >= 0 && x < pieceOnBoard.GetLength(0) && y >= 0 && y < pieceOnBoard.GetLength(1)) { 
                     pieceOnBoard[x, y] = (PieceType + 1);
@@ -183,10 +184,10 @@
         }
 
         public void placePiece() {
-            int[,] pieceOnBoard = GetPieceOnBoard();
+            int[,] pieceOnBoard = GetPieceOnBoard(false);
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 24; j++) {
-                    if (pieceOnBoard[i, j] > 0) {
+                    if (pieceOnBoard[i, j] > 0 && pieceOnBoard[i, j] != 8) {
                         GameBoard.SetTile(i, j, PieceType + 1);
                     }
                 }

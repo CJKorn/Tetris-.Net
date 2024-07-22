@@ -47,7 +47,13 @@ namespace TetrisCSharp {
 
             for (int x = 0; x < 10; x++) {
                 for (int y = 0; y < 24; y++) {
-                    Color color = BlockColors[board[x, y]];
+                    Color color = BlockColors[0];
+                    try {
+                        color = BlockColors[board[x, y]];
+                    }
+                    catch {
+                        color = BlockColors[0];
+                    }
 
                     // Draw the block
                     using (Brush brush = new SolidBrush(color)) {

@@ -69,7 +69,7 @@ namespace TetrisCSharp {
         }
 
         //public void placePiece() {
-        //    int[,] pieceOnBoard = currentPiece.GetPieceOnBoard();
+        //    int[,] pieceOnBoard = currentPiece.GetPieceOnBoard(false);
         //    for (int i = 0; i < 10; i++) {
         //        for (int j = 0; j < 24; j++) {
         //            if (pieceOnBoard[i, j] > 0) {
@@ -86,7 +86,7 @@ namespace TetrisCSharp {
             if (currentPiece == null) {
                 return tiles;
             }
-            int[,] pieceOnBoard = currentPiece.GetPieceOnBoard();
+            int[,] pieceOnBoard = currentPiece.GetPieceOnBoard(true);
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 24; j++) {
                     board[i, j] = tiles[i, j] + pieceOnBoard[i, j];

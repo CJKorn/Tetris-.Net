@@ -48,11 +48,11 @@ namespace TetrisCSharp {
                     }
                 }
                 if (LineFull) {
-                    for (int j = 0; j < 10; j++) {
+                    for (int j = 0; j < 10; j++) { //Probably don't need this
                         Tiles[j, i] = 0;
                     }
                     for (int k = i; k < 23; k++) {
-                        for (int j = 0; j < 10; j++) {
+                        for (int j = 0; j < 10; j++) { //Evil triple nested loop
                             Tiles[j, k] = Tiles[j, k + 1];
                         }
                     }
