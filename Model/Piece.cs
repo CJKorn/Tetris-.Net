@@ -53,7 +53,7 @@
                 int x = PieceX + PieceShape[i, 0];
                 int y = PieceY + PieceShape[i, 1];
                 int DropDist = GetDropDist();
-                if ((DropDist > 0) && (y - DropDist >= 0) && (GhostPieces) && (x >= 0) && (x < 10)) {
+                if ((DropDist > 0) && (y - DropDist >= 0) && (GhostPieces) && (x >= 0) && (x < 10) && (pieceOnBoard[x, y - DropDist] == 0)) {
                     pieceOnBoard[x, y - DropDist] = (8);
                 }
                 if (x >= 0 && x < pieceOnBoard.GetLength(0) && y >= 0 && y < pieceOnBoard.GetLength(1)) { 
