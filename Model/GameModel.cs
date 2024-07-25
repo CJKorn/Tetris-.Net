@@ -91,7 +91,7 @@ namespace TetrisCSharp {
                 for (int j = 0; j < 24; j++) {
                     board[i, j] = tiles[i, j] + pieceOnBoard[i, j];
                     if (tiles[i, j] > 0 && pieceOnBoard[i, j] > 0) {
-                        //
+                        board[i, j] = pieceOnBoard[i, j];
                     }
                 }
             }

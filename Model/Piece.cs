@@ -144,10 +144,8 @@
             for (int i = 0; i < 4; i++) {
                 int x = TestX + Shape[i, 0];
                 int y = TestY + Shape[i, 1];
-                if (x >= 0 && x < GameBoard.Tiles.GetLength(0) && y >= 0 && y < GameBoard.Tiles.GetLength(1)) {
-                    if (GameBoard.GetTile(x, y) < 0) {
-                        return true;
-                    }
+                if (x < 0 || x >= 10 || GameBoard.GetTile(x, y) != 0) {
+                    return true;
                 }
             }
             return false;
@@ -169,6 +167,7 @@
 
         public int GetDropDist() {
             int DropDist = 0;
+            bool First = true;
             for (int i = 0; i < 4; i++) {
                 int temp = 0;
                 int x = PieceX + PieceShape[i, 0];
@@ -176,8 +175,9 @@
                 while (y - temp > 0 && GameBoard.GetTile(x, y - temp - 1) == 0) {
                     temp++;
                 }
-                if (temp < DropDist || DropDist == 0) {
+                if (temp < DropDist || (First)) {
                     DropDist = temp;
+                    First = false;
                 }
             }
             return DropDist;
