@@ -32,7 +32,7 @@ namespace TetrisCSharp {
         public void RandomizeBoard() {
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 24; j++) {
-                    Tiles[i, j] = Random.Shared.Next(0, 2);
+                    Tiles[i, j] = Random.Shared.Next(0, 7);
                 }
             }
         }

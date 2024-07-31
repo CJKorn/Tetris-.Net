@@ -23,7 +23,7 @@
         public void Reset() {
             PieceX = 4;
             PieceY = 24;
-            PieceRotation = 0;
+            //PieceRotation = 0;
             PieceShape = GetPieceShape(PieceType, PieceRotation);
         }
 
@@ -194,6 +194,14 @@
             }
             GameBoard.ClearLines();
             model.newPiece();
+        }
+
+        public int[,] getPiecePreview() {
+            int[,] piecePreview = new int[4, 4];
+            for (int i = 0; i < 4; i++) {
+                piecePreview[PieceShape[i, 0], PieceShape[i, 1]] = PieceType + 1;
+            }
+            return piecePreview;
         }
 
         public int[,] GetPieceShape(int pieceType, int rotationIndex) {

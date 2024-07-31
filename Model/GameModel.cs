@@ -8,6 +8,7 @@ namespace TetrisCSharp {
         private int interval = 1000;
         private int[] nextPieceList;
         private Piece heldPiece;
+        private bool holdable = true;
 
         public GameModel(GameView view) {
             this.view = view;
@@ -100,15 +101,17 @@ namespace TetrisCSharp {
         }
 
         public void Hold() {
-            if (heldPiece == null) {
-                heldPiece = currentPiece;
-                newPiece();
-            }
-            else {
-                Piece temp = currentPiece;
-                currentPiece = heldPiece;
-                heldPiece.Reset();
-                heldPiece = temp;
+            if (holdable) {
+                if (heldPiece == null) {
+                    heldPiece = currentPiece;
+                    newPiece();
+                } else {
+                    Piece temp = currentPiece;
+                    currentPiece = heldPiece;
+                    heldPiece.Reset();
+                    heldPiece = temp;
+                }
+                holdable = false;
             }
         }
 
@@ -121,6 +124,7 @@ namespace TetrisCSharp {
         }
 
         public void newPiece() {
+            holdable = true;
             if (nextPieceList == null || nextPieceList.Length == 0) {
                 newPieceList();
             }
