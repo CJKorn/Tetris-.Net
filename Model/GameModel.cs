@@ -132,5 +132,17 @@ namespace TetrisCSharp {
             currentPiece = new Piece(nextPieceList[0], GameBoard, this);
             nextPieceList = nextPieceList.Skip(1).ToArray();
         }
+
+        public Piece getHeldPiece() {
+            return heldPiece;
+        }
+
+        public bool pieceHeld() {
+            return heldPiece != null;
+        }
+
+        public int[] GetNextPieceList() {
+            return nextPieceList;
+        }
     }
 }

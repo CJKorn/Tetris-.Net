@@ -14,7 +14,7 @@
             PieceY = 24;
             PieceType = pieceType;
             PieceRotation = 0;
-            PieceShape = GetPieceShape(pieceType, PieceRotation);
+            PieceShape = ReadPieceShape(pieceType, PieceRotation);
             this.GameBoard = GameBoard;
             this.PieceType = pieceType;
             this.model = model;
@@ -24,7 +24,7 @@
             PieceX = 4;
             PieceY = 24;
             //PieceRotation = 0;
-            PieceShape = GetPieceShape(PieceType, PieceRotation);
+            PieceShape = ReadPieceShape(PieceType, PieceRotation);
         }
 
         public bool CanMoveDown() {
@@ -96,7 +96,7 @@
                     PieceRotation = TempRotation;
                     PieceX += results[0];
                     PieceY += results[1];
-                    PieceShape = GetPieceShape(PieceType, PieceRotation);
+                    PieceShape = ReadPieceShape(PieceType, PieceRotation);
                 }
             }
         }
@@ -112,7 +112,7 @@
                     PieceRotation = TempRotation;
                     PieceX += results[0];
                     PieceY += results[1];
-                    PieceShape = GetPieceShape(PieceType, PieceRotation);
+                    PieceShape = ReadPieceShape(PieceType, PieceRotation);
                 }
             }
         }
@@ -199,14 +199,22 @@
         public int[,] getPiecePreview() {
             int[,] piecePreview = new int[4, 4];
             for (int i = 0; i < 4; i++) {
-                piecePreview[PieceShape[i, 0], PieceShape[i, 1]] = PieceType + 1;
+                piecePreview[(PieceShape[i, 0] + 1), (PieceShape[i, 1] + 1)] = PieceType + 1;
             }
             return piecePreview;
         }
 
-        public int[,] GetPieceShape(int pieceType, int rotationIndex) {
+        public int[,] ReadPieceShape(int pieceType, int rotationIndex) {
             rotationIndex = rotationIndex % PieceShapes.Shapes[pieceType].Count;
             return PieceShapes.Shapes[pieceType][rotationIndex];
+        }
+
+        public int[,] GetPieceShape() {
+            return PieceShapes.Shapes[PieceType][PieceRotation];
+        }
+
+        public int GetPieceType() {
+            return PieceType;
         }
     }
 }
