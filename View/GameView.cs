@@ -21,6 +21,7 @@ namespace TetrisCSharp {
         int centerY = 0;
         int offsetX = 0;
         int offsetY = 0;
+        private int previewLength = 7;
         private GameModel model;
 
         public GameView() {
@@ -50,10 +51,15 @@ namespace TetrisCSharp {
 
         protected override void OnPaint(PaintEventArgs e) {
             base.OnPaint(e);
-            DrawBoard(e);
             if (model.pieceHeld()) {
                 DrawPiece(40, 40, 24, model.getHeldPiece(), e);
             }
+            if (model.pieceListExists()) {
+                for (int i = 0; i < previewLength; i++) {
+                    DrawPiece(600, 40 + (i * 100), 24, model.GetNextPieceList().ElementAt(i), e);
+                }
+            }
+            DrawBoard(e);
         }
 
         public void DrawBoard(PaintEventArgs e) {

@@ -5,8 +5,8 @@ namespace TetrisCSharp {
         public Board GameBoard { get; private set; }
         private System.Windows.Forms.Timer gameTimer;
         private Piece currentPiece;
-        private int interval = 1000;
-        private int[] nextPieceList;
+        private int interval = 500;
+        private Piece[] nextPieceList;
         private Piece heldPiece;
         private bool holdable = true;
 
@@ -119,17 +119,32 @@ namespace TetrisCSharp {
             Score = score;
         }
 
-        public void newPieceList() {
-            nextPieceList = Enumerable.Range(0, 7).OrderBy(x => Random.Shared.Next()).ToArray();
+        public void newPieceList() { //There's probably a better way to do this but I've rewritten this like 5 times and it works so oh well
+            Piece nextPiece;
+            Piece[] tempPieceList = new Piece[7];
+            int[] pieceTypeList;
+            if (nextPieceList == null) {
+                nextPieceList = new Piece[7];
+                pieceTypeList = Enumerable.Range(0, 7).OrderBy(x => Random.Shared.Next()).ToArray();
+                for (int i = 0; i < 7; i++) {
+                    nextPieceList[i] = new Piece(pieceTypeList[i], GameBoard, this);
+                }
+            }
+            pieceTypeList = Enumerable.Range(0, 7).OrderBy(x => Random.Shared.Next()).ToArray();
+            for (int i = 0; i < 7; i++) {
+                tempPieceList[i] = new Piece(pieceTypeList[i], GameBoard, this);
+            }
+            nextPieceList = nextPieceList.Concat(tempPieceList).ToArray();
+            //nextPieceList = nextPieceList.Concat(Enumerable.Range(0, 7).OrderBy(x => Random.Shared.Next())).ToArray(); //Dunno why += doesn't work
         }
 
         public void newPiece() {
             holdable = true;
-            if (nextPieceList == null || nextPieceList.Length == 0) {
+            if (nextPieceList == null || nextPieceList.Length < 8) {
                 newPieceList();
             }
             //currentPiece = new Piece(0, GameBoard, this);
-            currentPiece = new Piece(nextPieceList[0], GameBoard, this);
+            currentPiece = nextPieceList[0];
             nextPieceList = nextPieceList.Skip(1).ToArray();
         }
 
@@ -141,8 +156,12 @@ namespace TetrisCSharp {
             return heldPiece != null;
         }
 
-        public int[] GetNextPieceList() {
+        public Piece[] GetNextPieceList() {
             return nextPieceList;
+        }
+
+        public bool pieceListExists() {
+            return nextPieceList != null;
         }
     }
 }
